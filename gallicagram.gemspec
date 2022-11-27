@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
 	s.summary = %q{A ruby gem to manage Gallicagram data}
   s.email = %q{nicolas.leroux@sciencespo.fr}
   s.files = ["lib/gallicagram.rb"]
-  s.homepage = %q{http://rubygems.org/gems/gallicagram}
+  s.homepage = %q{https://github.com/nicolrx/gallicagram}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.6.2}
 	
