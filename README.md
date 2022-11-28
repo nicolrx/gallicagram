@@ -31,6 +31,8 @@ Then, search the data with the following parameters:
 ```ruby
 # query = string or array of strings
 # corpus = string ("lemonde","livres","presse")
+# start_date = string (year)
+# end_date = string (year)
 # resolution = string ("year", "month")
 # sum = true to return the sum of the frequencies of the searched words
 
