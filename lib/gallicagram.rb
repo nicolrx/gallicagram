@@ -42,7 +42,7 @@ end
 
 def call_api(query, corpus, start_date, end_date)
 	# We search through the Gallicagram API
-	url = "https://shiny.ens-paris-saclay.fr/guni/corpus=#{corpus}_#{query}_from=#{start_date}_to=#{end_date}"
+	url = "hhttps://shiny.ens-paris-saclay.fr/guni/query?corpus=#{corpus}&mot=#{query}&from=#{start_date}to=#{end_date}"
 
 	response = URI.open(url)
 
