@@ -10,23 +10,20 @@ class Gallicagram
 	def self.search(query,corpus="lemonde",start_date="1900",end_date="2000",resolution="annee",sum=false)
 
 		query = [query] unless query.kind_of?(Array)
-		data = ""
+		output = ""
 		query.each_with_index do |word, index|
 			query = format_query(word, sum)
-			response = call_api(word, corpus, start_date, end_date,resolution)
+			if corpus == "livres" && resolution == "mois"
+				resolution = "annee"
+			end
+			response = call_api(word, corpus, start_date, end_date, resolution)
 			unless index == 0
 				response = response.gsub("n,gram,annee,mois,jour,total", "\n").strip
 			end
-			data << response
+			output << response
 		end
 
-		if corpus == "livres" && resolution == "mois"
-			resolution = "annee"
-		end
-
-		if resolution == "mois"
-			data = group_by_resolution(data)
-		end
+		data = CSV.parse(output, :headers => true)
 
 		return data
 	end
@@ -49,18 +46,4 @@ def call_api(query, corpus, start_date, end_date, resolution)
 	response = URI.open(url)
 
 	return response.read
-end
-
-def group_by_resolution(data)
-	csv_parsing = CSV.parse(data, :headers => true)
-	clean_data_array = []
-
-	csv_parsing.group_by { |word| [word["annee"], word["mois"], word["gram"]] }.each do |cp|
-		sum = cp[1].sum { |word| word["total"].to_i }
-		new_row = cp[0]
-		new_row << sum
-		clean_data_array << new_row
-	end
-
-	return clean_data_array
 end
